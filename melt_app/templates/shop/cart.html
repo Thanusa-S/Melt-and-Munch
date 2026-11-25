@@ -1,0 +1,151 @@
+
+{% extends 'shop/base.html' %}
+{% load static cart_extras %}
+
+{% block title %}Your Cart | Melt & Munch{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'shop/css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="page-intro">
+    <span class="eyebrow">YOUR LITTLE SCOOP BAG</span>
+    <h1>Cart full of <em>happiness</em></h1>
+</section>
+
+{% if rows %}
+
+<div class="cart-layout">
+
+    <div class="cart-items">
+
+        {% for product, quantity, scoops, item_type in rows %}
+
+        <article class="cart-item">
+
+            <!-- Product Image -->
+            <div class="cart-thumb">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}"
+                         alt="{{ product.name }}">
+                {% else %}
+                    🍦
+                {% endif %}
+            </div>
+
+            <!-- Product Details -->
+            <div class="cart-product">
+
+                <h3>{{ product.name }}</h3>
+
+                {% if product.category.name %}
+                    <span>{{ product.category.name }}</span>
+                {% else %}
+                    <span>{{ product.get_category_display }}</span>
+                {% endif %}
+
+                <strong>₹{{ product.price }}</strong>
+
+            </div>
+
+            <!-- Quantity Update -->
+            
+<form method="POST"
+      action="{% url 'update_cart' item_type product.id %}"
+      class="cart-quantity">
+
+    {% csrf_token %}
+
+    <div class="quantity-field">
+        <label>Quantity (Cups)</label>
+        <input type="number" name="quantity"
+               min="0" max="99" value="{{ quantity }}">
+    </div>
+
+    <div class="quantity-field">
+        <label>Number of Scoops</label>
+        <input type="number" name="scoops"
+               min="1" max="20" value="{{ scoops }}">
+    </div>
+
+    <button type="submit" class="update-button">
+        Update Cart
+    </button>
+
+    <small>Set quantity to 0 to remove the item.</small>
+</form>
+
+
+            <!-- Subtotal -->
+            <div class="line-total">
+                ₹{{ product.price|multiply:quantity|multiply:scoops|floatformat:2 }}
+            </div>
+
+        </article>
+
+        {% endfor %}
+
+        <a class="text-link continue-link"
+           href="{% url 'ice_creams' %}">
+            ← Keep exploring flavours
+        </a>
+
+    </div>
+
+    <!-- Order Summary -->
+    <aside class="cart-summary">
+
+        <span class="eyebrow">THE SWEET TOTAL</span>
+
+        <h2>Order summary</h2>
+
+        <div class="summary-line">
+            <span>Items</span>
+            <strong>{{ nav_cart_count }}</strong>
+        </div>
+
+        <div class="summary-line total-line">
+            <span>Total</span>
+            <strong>₹{{ total|floatformat:2 }}</strong>
+        </div>
+
+        <p class="summary-note">
+            Your order total is calculated using product prices.
+        </p>
+
+        <a href="{% url 'checkout' %}"
+           class="button button-pink checkout-button">
+            Go to checkout →
+        </a>
+
+    </aside>
+
+</div>
+
+{% else %}
+
+<!-- Empty Cart -->
+<div class="empty-cart">
+
+    <div>🛒🍦</div>
+
+    <h2>Your cart is taking a little nap</h2>
+
+    <p>Let's fill it with something delicious.</p>
+
+    <a href="{% url 'ice_creams' %}"
+       class="button button-pink">
+        Shop ice creams
+    </a>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/cart.js' %}" defer></script>
+{% endblock %}

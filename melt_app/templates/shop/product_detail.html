@@ -1,0 +1,68 @@
+{% extends 'melt_app/templates/shop/base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }} | Melt & Munch{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="breadcrumbs">
+    <a href="{% url 'products' %}">Ice Creams</a>
+    / {{ product.name }}
+</div>
+
+<section class="detail-layout">
+    <div class="detail-image">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+            <span>🍨</span>
+        {% endif %}
+        <div class="image-doodle">SO<br>YUMMY!</div>
+    </div>
+
+    <div class="detail-copy">
+        <span class="eyebrow">{{ product.category.name|upper }}</span>
+        <h1>{{ product.name }}</h1>
+
+        <div class="rating">★★★★★ <span>Sweetness level: 100%</span></div>
+
+        <p class="detail-description">{{ product.description }}</p>
+        <div class="detail-price">₹{{ product.price }}</div>
+
+        <p class="fresh-note">💗 A little happiness packed just for you.</p>
+
+        <form method="post"
+              action="{% url 'add_to_cart' product.id %}"
+              class="add-form" id="detailForm">
+
+            {% csrf_token %}
+
+            <label for="quantity">Quantity</label>
+
+            <div class="quantity-control">
+                <button type="button" id="qtyMinus">−</button>
+                <input type="number" id="quantity"
+                       name="quantity" min="1" max="99" value="1">
+                <button type="button" id="qtyPlus">+</button>
+            </div>
+
+            <button type="submit" class="button button-pink add-large">
+                Add to cart 🛒
+            </button>
+        </form>
+
+        <ul class="perks">
+            <li>🍓 Packed with flavour</li>
+            <li>💌 A sweet treat for your day</li>
+            <li>✨ Happiness in every bite</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/product_detail.js' %}" defer></script>
+{% endblock %}

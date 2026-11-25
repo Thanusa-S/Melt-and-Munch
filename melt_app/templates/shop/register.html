@@ -1,0 +1,164 @@
+
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Join the Scoop Club | Melt & Munch{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'shop/css/register.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="register-page">
+
+    <span class="register-spark spark-a">✦</span>
+    <span class="register-spark spark-b">♡</span>
+    <span class="register-spark spark-c">✿</span>
+
+    <div class="register-layout">
+
+        <!-- Left side: brand story and photo -->
+        <div class="register-showcase">
+            <span class="register-eyebrow">🍓 YOUR SWEET ADVENTURE STARTS HERE</span>
+
+            <h1>Life's sweeter<br>with a little <em>treat.</em></h1>
+
+            <p class="showcase-description">
+                Join the Melt & Munch family and make room for
+                happy scoops, colourful flavours, and unforgettable moments.
+            </p>
+
+            <div class="register-photo-frame">
+                <img
+                    src="{% static 'shop/picture/ice1.jpg' %}"
+                    alt="Delicious colourful ice cream scoops"
+                    class="register-photo"
+                >
+
+                <div class="photo-bubble bubble-top">
+                    <span>🍦</span>
+                    <div>
+                        <strong>Sweet treats</strong>
+                        <small>Happy moments</small>
+                    </div>
+                </div>
+
+                <div class="photo-bubble bubble-bottom">
+                    Made with <span>♥</span> for ice-cream lovers
+                </div>
+            </div>
+
+            <div class="register-benefits">
+                <div class="benefit-item">
+                    <span>🍒</span>
+                    <div>
+                        <strong>Discover flavours</strong>
+                        <small>Find your new favourite</small>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <span>💖</span>
+                    <div>
+                        <strong>Join the fun</strong>
+                        <small>Make every scoop special</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right side: Django registration form -->
+        <div class="register-card">
+            <div class="card-decoration">🍨</div>
+
+            <div class="register-card-heading">
+                <span class="form-kicker">A SWEET LITTLE HELLO</span>
+                <h2>Create your <em>account!</em></h2>
+                <p>It only takes a moment to join our scoop club.</p>
+            </div>
+
+            {% if form.non_field_errors %}
+                <div class="register-message register-error" role="alert">
+                    {{ form.non_field_errors|striptags }}
+                </div>
+            {% endif %}
+
+            <form method="post" class="register-form" id="registerForm" novalidate>
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="register-field">
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                            {% if field.field.required %}<span class="required-star">*</span>{% endif %}
+                        </label>
+
+                        {% if field.field.widget.input_type == "password" %}
+                            <div class="register-password-wrap">
+                                {{ field }}
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    aria-label="Show password"
+                                    aria-pressed="false"
+                                >
+                                    <svg class="eye-icon"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         width="20"
+                                         height="20"
+                                         viewBox="0 0 24 24"
+                                         fill="none"
+                                         stroke="currentColor"
+                                         stroke-width="1.8"
+                                         stroke-linecap="round"
+                                         stroke-linejoin="round">
+                                        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
+
+                        {% if field.help_text %}
+                            <small class="register-help">{{ field.help_text|safe }}</small>
+                        {% endif %}
+
+                        {% if field.errors %}
+                            <small class="register-field-error">
+                                {{ field.errors|striptags }}
+                            </small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div id="registerError" class="register-field-error" role="alert"></div>
+
+                <button type="submit" class="register-submit" id="registerSubmit">
+                    <span>Create my account</span>
+                    <span class="submit-sparkle">✨</span>
+                </button>
+
+                <div class="register-divider">
+                    <span></span>
+                    <small>MORE SWEETNESS AWAITS</small>
+                    <span></span>
+                </div>
+
+                <p class="register-login">
+                    Already part of the club?
+                    <a href="{% url 'login' %}">Log in here →</a>
+                </p>
+
+                <p class="register-note">🍦 A little scoop of happiness, just for you.</p>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'shop/js/register.js' %}" defer></script>
+{% endblock %}

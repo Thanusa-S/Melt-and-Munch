@@ -1,0 +1,198 @@
+
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Orders | Melt & Munch{% endblock %}
+{% block page_heading %}Order Management{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'dashboard/css/orders.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="orders-page">
+
+    <!-- PAGE HEADING -->
+    <div class="list-heading">
+        <div>
+            <span class="heading-tag">SWEET BUSINESS MANAGEMENT</span>
+            <h2>Customer Orders <span>🛍️</span></h2>
+            <p>Manage customer orders and keep every scoop on track!</p>
+        </div>
+
+        <div class="orders-icon">
+            <i class="fa-solid fa-ice-cream"></i>
+        </div>
+    </div>
+
+    <!-- FILTER SECTION -->
+    <form method="get" class="order-filter">
+
+        <div class="filter-label">
+            <i class="fa-solid fa-filter"></i>
+            <span>Filter Orders</span>
+        </div>
+
+        <select name="status">
+            <option value="">All Orders</option>
+
+            {% for value, label in statuses %}
+            <option value="{{ value }}"
+                {% if selected_status == value %}selected{% endif %}>
+                {{ label }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Apply Filter
+        </button>
+
+        <a href="{% url 'dashboard_orders' %}" class="clear-filter">
+            Clear Filter
+        </a>
+
+    </form>
+
+    <!-- ORDERS TABLE -->
+    <div class="order-table-panel">
+
+        <div class="table-heading">
+            <div>
+                <h3>All Customer Orders</h3>
+                <p>View order details and update delivery progress.</p>
+            </div>
+
+            <span class="order-count">
+                <i class="fa-solid fa-bag-shopping"></i>
+                {{ orders|length }} Orders
+            </span>
+        </div>
+
+        <div class="table-scroll">
+
+            <table class="orders-table">
+
+                <thead>
+                    <tr>
+                        <th>ORDER ID</th>
+                        <th>CUSTOMER</th>
+                        <th>PHONE</th>
+                        <th>ORDER ITEMS</th>
+                        <th>TOTAL</th>
+                        <th>DATE</th>
+                        <th>STATUS</th>
+                        <th>UPDATE</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for order in orders %}
+                    <tr>
+
+                        <td>
+                            <span class="order-id">#{{ order.id }}</span>
+                        </td>
+
+                        <td>
+                            <div class="customer-info">
+                                <div class="customer-avatar">
+                                    {{ order.full_name|first|upper }}
+                                </div>
+
+                                <div>
+                                    <strong>{{ order.full_name }}</strong>
+                                    <small>{{ order.email }}</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>{{ order.phone }}</td>
+
+                        <td>
+                            <div class="order-items">
+                                {% for line in order.lines.all %}
+                                    <span>
+                                        {{ line.product_name }} × {{ line.quantity }}
+                                    </span>
+                                {% empty %}
+                                    <small>No items</small>
+                                {% endfor %}
+                            </div>
+                        </td>
+
+                        <td>
+                            <strong class="order-total">
+                                ₹{{ order.total_price }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            <span class="order-date">
+                                {{ order.created_at|date:"d M Y" }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="order-status {{ order.status }}">
+                                {{ order.get_status_display }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <form method="post"
+                                  action="{% url 'update_order_status' order.pk %}"
+                                  class="status-form">
+
+                                {% csrf_token %}
+
+                                <select name="status">
+                                    {% for value, label in statuses %}
+                                    <option value="{{ value }}"
+                                        {% if order.status == value %}selected{% endif %}>
+                                        {{ label }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+
+                                <button type="submit" title="Update order status">
+                                    <i class="fa-solid fa-check"></i>
+                                </button>
+
+                            </form>
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="8" class="empty-row">
+                            <div class="empty-icon">🍦</div>
+                            <h3>No Orders Found</h3>
+                            <p>There are no customer orders matching your filter.</p>
+                            <a href="{% url 'dashboard_orders' %}">
+                                View All Orders
+                            </a>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'dashboard/js/orders.js' %}" defer></script>
+{% endblock %}

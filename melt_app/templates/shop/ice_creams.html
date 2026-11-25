@@ -1,0 +1,404 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Ice Creams | Melt & Munch{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'shop/css/ice_creams.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="ice-hero">
+
+    <div class="hero-background-shape"></div>
+
+    <div class="ice-hero-content">
+
+        <span class="ice-tag">🍓 A LITTLE SCOOP OF HAPPINESS</span>
+
+        <h1>
+            Life is sweeter<br>
+            with <span>ice cream!</span>
+        </h1>
+
+        <p>
+            Discover a world of creamy dreams, delicious flavours
+            and colourful scoops made to make your day special.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#icecream-menu" class="ice-hero-btn">
+                Explore Flavours <span>→</span>
+            </a>
+
+            <a href="#flavours" class="hero-text-link">
+                Discover More ↓
+            </a>
+        </div>
+
+        <div class="hero-features">
+            <div>
+                <span>🍓</span>
+                <p>Fresh Flavours</p>
+            </div>
+
+            <div>
+                <span>💗</span>
+                <p>Made with Love</p>
+            </div>
+
+            <div>
+                <span>✨</span>
+                <p>Sweet Moments</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="ice-hero-image">
+
+        <img
+            src="{% static 'shop/picture/cup and melt_much.png' %}"
+            alt="Colourful ice cream scoops">
+
+        <div class="hero-photo-label">
+            <span>100%</span>
+            <small>HAPPY VIBES</small>
+        </div>
+
+        <div class="hero-round-label">
+            <span>Sweet</span>
+            <strong>Happiness!</strong>
+        </div>
+
+    </div>
+
+    <span class="hero-decoration hero-star">✦</span>
+    <span class="hero-decoration hero-heart">♡</span>
+
+</section>
+
+
+<!-- FLAVOUR CATEGORIES -->
+<section class="flavour-section" id="flavours">
+
+    <div class="section-heading">
+        <span class="heading-label">FIND YOUR HAPPY SCOOP</span>
+        <h2>Explore Our <span>Flavours</span></h2>
+        <p>Every flavour has a story. Which one is yours?</p>
+    </div>
+
+    <div class="flavour-categories">
+
+        <a href="?category=classic#icecream-menu" class="flavour-item">
+            <div class="flavour-image">
+                <img
+                    src="{% static 'shop/picture/classic_1.jpg' %}" 
+                    alt="Vanilla ice cream">
+            </div>
+            <h3>Classic</h3>
+            <span>Simple & Delicious</span>
+        </a>
+
+        <a href="?category=chocolate#icecream-menu" class="flavour-item">
+            <div class="flavour-image">
+                <img
+                    src="{% static 'shop/picture/chocolate_1.jpg' %}"
+                    alt="Chocolate ice cream">
+            </div>
+            <h3>Chocolate</h3>
+            <span>Rich & Creamy</span>
+        </a>
+
+        <a href="?category=fruit#icecream-menu" class="flavour-item">
+            <div class="flavour-image">
+                <img
+                    src="{% static 'shop/picture/fruit_1.jpg' %}"
+                    alt="Fruit ice cream">
+            </div>
+            <h3>Fruit</h3>
+            <span>Fresh & Fruity</span>
+        </a>
+
+        <a href="?category=sundae#icecream-menu" class="flavour-item">
+            <div class="flavour-image">
+                <img
+                    src="{% static 'shop/picture/sundae_1.jpg' %}"
+                    alt="Ice cream sundae">
+            </div>
+            <h3>Sundae</h3>
+            <span>Extra Happiness</span>
+        </a>
+
+        <a href="?category=premium#icecream-menu" class="flavour-item">
+            <div class="flavour-image">
+                <img
+                    src="https://images.unsplash.com/photo-1488900128323-21503983a07e?auto=format&fit=crop&w=500&q=85"
+                    alt="Premium ice cream">
+            </div>
+            <h3>Premium</h3>
+            <span>Luxury Scoops</span>
+        </a>
+
+        <a href="?category=special#icecream-menu" class="flavour-item">
+            <div class="flavour-image">
+                <img
+                    src="{% static 'shop/picture/special_1.jpg' %}"
+                    alt="Special ice cream">
+            </div>
+            <h3>Special</h3>
+            <span>Made to Surprise</span>
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- PRODUCT COLLECTION -->
+<section class="ice-menu-section" id="icecream-menu">
+
+    <div class="section-heading">
+        <span class="heading-label">A WORLD OF SWEETNESS</span>
+        <h2>One Scoop Away From <span>Joy!</span></h2>
+        <p>Choose your favourite and make today extra special.</p>
+    </div>
+
+
+    <!-- SEARCH AND FILTER -->
+    <form method="get" class="ice-filter-form" id="iceFilterForm">
+
+        <div class="ice-search-box">
+            <span>⌕</span>
+            {{ form.search }}
+        </div>
+
+        {{ form.category }}
+
+        {{ form.sort }}
+
+        <button type="submit" class="filter-btn">
+            Search Flavours
+        </button>
+
+        <a href="{% url 'ice_creams' %}" class="clear-filter">
+            Clear
+        </a>
+
+    </form>
+
+
+    <div class="result-count">
+        <span>🍦</span>
+        Showing {{ total_ice_creams }} delicious flavours
+    </div>
+
+
+    <!-- PRODUCT CARDS -->
+    <div class="ice-product-grid">
+
+        {% for ice in ice_creams %}
+
+        <article class="ice-card">
+
+            <div class="ice-card-image">
+
+                {% if ice.image %}
+                    <img
+                        src="{{ ice.image.url }}"
+                        alt="{{ ice.name }}"
+                        loading="lazy">
+                {% else %}
+                    <img
+                        src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=700&q=85"
+                        alt="Ice cream"
+                        loading="lazy">
+                {% endif %}
+
+                {% if ice.is_featured %}
+                    <span class="ice-badge">⭐ BEST SELLER</span>
+                {% endif %}
+
+                <span class="image-hover-text">Made with love 💗</span>
+
+            </div>
+
+
+            <div class="ice-card-content">
+
+                <span class="ice-category">
+                    {{ ice.get_category_display }}
+                </span>
+
+                <h3>{{ ice.name }}</h3>
+
+                <p>
+                    {{ ice.description|truncatewords:16 }}
+                </p>
+
+    
+                    <div class="ice-card-bottom">
+    <div class="ice-price">
+        <small>Our price</small>
+        <strong>₹{{ ice.price }}</strong>
+    </div>
+
+    <span class="card-decoration">SWEET<br>DELICIOUS</span>
+</div>
+
+<!-- PRODUCT BUTTONS -->
+
+<div class="ice-card-buttons">
+
+    <form method="POST"
+          action="{% url 'add_to_cart' 'icecream' ice.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="quantity" value="1">
+
+        <button type="submit"
+                name="action"
+                value="cart"
+                class="add-cart-btn">
+            🛒 Add to Cart
+        </button>
+    </form>
+
+    <form method="POST"
+          action="{% url 'add_to_cart' 'icecream' ice.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="quantity" value="1">
+
+        <button type="submit"
+                name="action"
+                value="buy_now"
+                class="buy-now-btn">
+            Buy Now →
+        </button>
+    </form>
+
+</div>
+
+<!-- ADD TO CART BUTTON -->
+<form method="POST"
+      action="{% url 'add_to_cart' 'icecream' ice.id %}">
+
+    {% csrf_token %}
+
+    <input type="hidden" name="quantity" value="1">
+
+    <!-- <button type="submit" class="add-cart-btn">
+        🛒 Add to Cart
+    </button> -->
+
+</form>
+
+            </div>
+
+        </article>
+
+        {% empty %}
+
+        <div class="no-products">
+
+            <img
+                src="https://images.unsplash.com/photo-1501446529957-6226bd447c46?auto=format&fit=crop&w=500&q=85"
+                alt="Ice cream">
+
+            <h3>No scoops found!</h3>
+
+            <p>
+                We couldn't find that flavour.
+                Try searching for another delicious treat.
+            </p>
+
+            <a href="{% url 'ice_creams' %}">
+                Explore All Flavours
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- PROMOTIONAL BANNER -->
+<section class="ice-promo-section">
+
+    <div class="promo-image">
+        <img
+            src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=900&q=85"
+            alt="Delicious ice cream with toppings">
+    </div>
+
+    <div class="promo-content">
+
+        <span>YOUR DAILY DOSE OF HAPPINESS 💗</span>
+
+        <h2>
+            Keep calm and<br>
+            eat <em>ice cream!</em>
+        </h2>
+
+        <p>
+            Life is full of little moments.
+            Make yours sweeter with Melt & Munch.
+        </p>
+
+        <a href="#icecream-menu">
+            Find Your Favourite →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- HAPPY MOMENTS -->
+<section class="happy-section">
+
+    <div class="section-heading">
+        <span class="heading-label">SWEET MEMORIES START HERE</span>
+        <h2>Happiness Looks Like <span>This!</span></h2>
+    </div>
+
+    <div class="happy-gallery">
+
+        <div class="happy-photo photo-one">
+            <img
+                src="https://images.unsplash.com/photo-1488900128323-21503983a07e?auto=format&fit=crop&w=700&q=85"
+                alt="Colourful ice cream">
+        </div>
+
+        <div class="happy-photo photo-two">
+            <img
+                src="{% static 'shop/picture/themeice.jpg' %}"
+                alt="Ice cream scoops">
+        </div>
+
+        <div class="happy-photo photo-three">
+            <img
+                src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=700&q=85"
+                alt="Ice cream dessert">
+        </div>
+
+        <div class="happy-photo photo-four">
+            <img
+                src="{% static 'shop/picture/3cup.jpg' %}"
+                alt="Ice cream bowl">
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block page_js %}
+<script src="{% static 'shop/js/ice_creams.js' %}" defer></script>
+{% endblock %}

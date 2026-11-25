@@ -1,0 +1,251 @@
+
+
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Home | Melt & Munch{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'shop/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-copy">
+        <span class="eyebrow reveal">A LITTLE SCOOP OF JOY ✨</span>
+
+        <h1 class="hero-title">
+            Happiness is
+            <em>just one scoop</em><br>
+            away!
+        </h1>
+
+        <p class="hero-description">
+            Dreamy flavours, creamy swirls and a sprinkle
+            of pure happiness. Find your new favourite scoop.
+        </p>
+
+        <div class="hero-actions">
+            <a href="{% url 'ice_creams' %}" class="button button-pink">
+                Explore flavours →
+            </a>
+            <span class="hero-note">Made with love, served with smiles 💗</span>
+        </div>
+
+        <div class="hero-rating">
+            <span>★★★★★</span>
+            <p>Little scoops, big happiness!</p>
+        </div>
+    </div>
+
+    <div class="hero-art">
+        <div class="sunburst"></div>
+        <div class="hero-emoji">🍨</div>
+        <span class="sticker">100%<br>YUM!</span>
+        <span class="hero-sparkle sparkle-one">✦</span>
+        <span class="hero-sparkle sparkle-two">✧</span>
+        <span class="hero-sparkle sparkle-three">✦</span>
+    </div>
+</section>
+
+<!-- FLAVOUR STRIP -->
+<section class="flavour-strip" aria-label="Our flavour promises">
+    <span>🍓 Fruity fun</span>
+    <span>🍫 Chocolate dreams</span>
+    <span>🌈 Joy in every scoop</span>
+    <span>💛 Made for sharing</span>
+</section>
+
+<!-- FLAVOUR CATEGORIES -->
+<section class="section-block category-section">
+    <div class="section-heading reveal">
+        <div>
+            <span class="eyebrow">A FLAVOUR FOR EVERY MOOD</span>
+            <h2>Choose your <em>happy place</em></h2>
+            <p class="section-intro">
+                Whether you're fruity, chocolatey or totally adventurous,
+                there's a scoop waiting for you.
+            </p>
+        </div>
+    </div>
+
+    <div class="flavour-categories">
+        <a href="?category=fruity#icecream-menu" class="flavour-category category-strawberry reveal">
+            <span class="category-emoji">🍓</span>
+            <h3>Fruity & Fresh</h3>
+            <p>Bright, juicy, berry-good fun.</p>
+            <span class="category-arrow">Explore →</span>
+        </a>
+
+        <a href="?category=chocolate#icecream-menu" class="flavour-category category-chocolate reveal">
+            <span class="category-emoji">🍫</span>
+            <h3>Chocolate Heaven</h3>
+            <p>Rich, smooth and extra dreamy.</p>
+            <span class="category-arrow">Explore →</span>
+        </a>
+
+        <a href="?category=classic#icecream-menu" class="flavour-category category-classic reveal">
+            <span class="category-emoji">🍦</span>
+            <h3>Classic Scoops</h3>
+            <p>Timeless treats you'll always love.</p>
+            <span class="category-arrow">Explore →</span>
+        </a>
+    </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="section-block featured-section">
+    <div class="section-heading reveal">
+        <div>
+            <span class="eyebrow">MEET YOUR NEW FAVOURITE</span>
+            <h2>Sweet little <em>obsessions</em></h2>
+            <p class="section-intro">
+                Handpicked treats to brighten even an ordinary day.
+            </p>
+        </div>
+
+        <a href="{% url 'ice_creams' %}" class="text-link">
+            View all flavours →
+        </a>
+    </div>
+
+    <div class="product-grid">
+        {% for product in featured %}
+        <article class="product-card reveal">
+            <a class="product-picture"
+               href="{% url 'product_detail' product.slug %}">
+
+                {% if product.image %}
+                    <img src="{{ product.image.url }}"
+                         alt="{{ product.name }}"
+                         loading="lazy">
+                {% else %}
+                    <span class="placeholder-scoop">🍦</span>
+                {% endif %}
+            </a>
+
+            <div class="product-info">
+                <span class="category-label">
+                    {{ product.category.name|default:"Sweet Treats" }}
+                </span>
+
+                <h3>
+                    <a href="{% url 'product_detail' product.slug %}">
+                        {{ product.name }}
+                    </a>
+                </h3>
+
+                <div class="product-bottom">
+                    <strong>₹{{ product.price }}</strong>
+
+                    <form method="post"
+                          action="{% url 'add_to_cart' product.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="quantity" value="1">
+                        <input type="hidden" name="next"
+                               value="{% url 'home' %}">
+
+                        <button class="round-add" type="submit"
+                                aria-label="Add {{ product.name }} to cart">
+                            +
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </article>
+        {% empty %}
+        <div class="empty-products">
+            <span>🍧</span>
+            
+            <h3>Your flavour adventure starts here!</h3>
+            <p>Add available ice cream products through Django admin.</p>
+            <a href="{% url 'ice_creams' %}" class="button button-pink">
+                Browse flavours →
+            </a>
+        
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- WHY US -->
+<section class="section-block love-section">
+    <div class="love-heading reveal">
+        <span class="eyebrow">A LITTLE EXTRA LOVE</span>
+        <h2>More than ice cream.<br><em>It's a happy feeling.</em></h2>
+        <p>
+            Every visit is a chance to treat yourself, share a smile
+            and make a sweet memory.
+        </p>
+    </div>
+
+    <div class="love-grid">
+        <article class="love-card reveal">
+            <span class="love-icon">🥛</span>
+            <h3>Creamy goodness</h3>
+            <p>Delightfully smooth scoops for your sweetest moments.</p>
+        </article>
+
+        <article class="love-card reveal">
+            <span class="love-icon">🍓</span>
+            <h3>Fun-filled flavours</h3>
+            <p>From fruity favourites to chocolatey little dreams.</p>
+        </article>
+
+        <article class="love-card reveal">
+            <span class="love-icon">💗</span>
+            <h3>Made for smiles</h3>
+            <p>Because a little treat can make a day feel wonderful.</p>
+        </article>
+    </div>
+</section>
+
+<!-- PROMOTIONAL BANNER -->
+<section class="promo-banner reveal">
+    <div class="promo-copy">
+        <span class="eyebrow">YOUR HAPPY PLACE</span>
+        <h2>Life's short.<br>Get the <em>extra sprinkles.</em></h2>
+        <p>From classic favourites to wonderfully wild creations.</p>
+
+        <a href="{% url 'ice_creams' %}" class="button button-dark">
+            Find your flavour →
+        </a>
+    </div>
+
+    <div class="promo-photo">
+        <img
+            src="https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=1000&q=85"
+            alt="Delicious colourful ice cream"
+            loading="lazy"
+        >
+        <span class="promo-photo-sticker">SWEET<br>HAPPINESS 🍦</span>
+    </div>
+
+    <span class="promo-star">✦</span>
+</section>
+
+<!-- HAPPY MOMENTS -->
+<section class="section-block happy-section">
+    <div class="happy-card reveal">
+        <span class="happy-quote">“</span>
+        <span class="eyebrow">A SWEET LITTLE REMINDER</span>
+        <h2>Make today a little <em>sweeter.</em></h2>
+        <p>
+            Celebrate the little things. Share a scoop with someone special.
+            And always leave room for dessert!
+        </p>
+        <a href="{% url 'ice_creams' %}" class="button button-pink">
+            Treat yourself 🍦
+        </a>
+        <span class="happy-decoration decoration-one">♡</span>
+        <span class="happy-decoration decoration-two">✦</span>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'shop/js/home.js' %}" defer></script>
+{% endblock %} 

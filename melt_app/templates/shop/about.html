@@ -1,0 +1,225 @@
+
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}About Us | Melt & Munch{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'shop/css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="about-page">
+
+    <!-- Hero -->
+    <section class="about-hero">
+        <div class="about-hero-copy">
+            <span class="eyebrow">💗 OUR SWEET LITTLE STORY</span>
+
+            <h1>Life is better<br>with <em>sprinkles.</em></h1>
+
+            <p>
+                Melt & Munch is all about the little moments that deserve
+                a big smile — sunny afternoons, time with your favourite
+                people, and delicious treats just because.
+            </p>
+
+            <div class="about-buttons">
+                <a href="{% url 'products' %}" class="about-button pink-button">
+                    Meet the flavours <span>→</span>
+                </a>
+                <a href="#our-story" class="story-link">Our story ↓</a>
+            </div>
+
+            <div class="about-mini-stats">
+                <div>
+                    <span>🍓</span>
+                    <strong>Fun flavours</strong>
+                </div>
+                <div>
+                    <span>💛</span>
+                    <strong>Happy moments</strong>
+                </div>
+                <div>
+                    <span>🌈</span>
+                    <strong>Sweet memories</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-hero-art">
+            <div class="hero-photo-frame">
+                <img
+                    src="{% static 'shop/picture/blue_ice.jpg' %}"
+                    alt="A colourful collection of ice cream scoops"
+                    class="hero-icecream-photo"
+                >
+            </div>
+
+            <div class="hero-sticker sticker-top">100%<br><small>HAPPY VIBES</small> ✨</div>
+            <div class="hero-sticker sticker-bottom">Scoop<br>some joy! 🍦</div>
+            <span class="hero-doodle doodle-heart">♡</span>
+            <span class="hero-doodle doodle-star">✦</span>
+        </div>
+    </section>
+
+    <!-- Story -->
+    <section class="story-section" id="our-story">
+        <div class="story-image">
+            <img
+                src="{% static 'shop/picture/ice2.jpg' %}"
+                alt="Ice cream served in a bright and cheerful setting"
+                loading="lazy"
+            >
+            <div class="story-image-label">A LITTLE SCOOP OF HAPPINESS 💕</div>
+        </div>
+
+        <div class="story-copy">
+            <span class="eyebrow">🍒 THE STORY BEHIND THE SCOOP</span>
+            <h2>More than just<br><em>ice cream.</em></h2>
+
+            <p>
+                We created Melt & Munch around one simple idea:
+                happiness can be found in the smallest things.
+            </p>
+
+            <p>
+                A favourite flavour after a long day, a sundae shared
+                with friends, or a spontaneous dessert date — these
+                are the moments we want to make extra special.
+            </p>
+
+            <p>
+                Our little world is filled with playful colours,
+                exciting flavours, and a whole lot of sweetness.
+                We're here to make every scoop feel like a celebration!
+            </p>
+
+            <a href="{% url 'products' %}" class="story-text-link">
+                Find your happy flavour <span>→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Values -->
+    <section class="values-section">
+        <div class="section-heading">
+            <span class="eyebrow">🌈 WHAT MAKES US, US</span>
+            <h2>Our recipe for <em>happiness.</em></h2>
+            <p>Three little things that make our world a sweeter place.</p>
+        </div>
+
+        <div class="values-grid">
+            <article class="value-card value-pink">
+                <div class="value-icon">🍓</div>
+                <h3>Playful by nature</h3>
+                <p>
+                    Colourful flavours, curious combinations, and
+                    new discoveries to brighten your day.
+                </p>
+                <span class="value-decoration">♡</span>
+            </article>
+
+            <article class="value-card value-yellow">
+                <div class="value-icon">💛</div>
+                <h3>Made for moments</h3>
+                <p>
+                    Every scoop is an invitation to share a laugh,
+                    make a memory, and enjoy the little things.
+                </p>
+                <span class="value-decoration">✦</span>
+            </article>
+
+            <article class="value-card value-purple">
+                <div class="value-icon">🌈</div>
+                <h3>Joy for everyone</h3>
+                <p>
+                    From timeless classics to exciting new favourites,
+                    there is always another flavour to discover.
+                </p>
+                <span class="value-decoration">♡</span>
+            </article>
+        </div>
+    </section>
+
+    <!-- Ice cream ambience gallery -->
+    <section class="ambience-section">
+        <div class="section-heading">
+            <span class="eyebrow">📸 A PEEK INTO OUR SWEET WORLD</span>
+            <h2>Good food. Happy mood. <em>Lovely vibes.</em></h2>
+            <p>A little colour, a little sweetness, and lots of reasons to smile.</p>
+        </div>
+
+        <div class="ambience-gallery">
+            <article class="ambience-card ambience-large">
+                <img
+                    src="{% static 'shop/picture/Melt & Munch Gelato Haven.png' %}"
+                    alt="Colourful ice cream cones"
+                    loading="lazy"
+                >
+                <div class="ambience-caption">
+                    <span>🍦</span>
+                    <div>
+                        <h3>Our happy scoops</h3>
+                        <p>Little treats, big smiles.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="ambience-card">
+                <img
+                    src="{% static 'shop/picture/3cup.jpg'%}"
+                    alt="A delicious ice cream dessert"
+                    loading="lazy"
+                >
+                <div class="ambience-caption">
+                    <span>🍨</span>
+                    <div>
+                        <h3>Sweet little moments</h3>
+                        <p>Made to be enjoyed.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="ambience-card">
+                <img
+                    src="{% static 'shop/picture/stick_ice.jpg' %}"
+                    alt="A refreshing ice cream treat"
+                    loading="lazy"
+                >
+                <div class="ambience-caption">
+                    <span>🍒</span>
+                    <div>
+                        <h3>Colourful cravings</h3>
+                        <p>Your next favourite awaits.</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Final call to action -->
+    <section class="about-cta">
+        <div class="cta-sprinkle sprinkle-left">✦</div>
+        <div class="cta-copy">
+            <span>💖 YOUR NEXT HAPPY MOMENT STARTS HERE</span>
+            <h2>Ready for a little <em>happy?</em></h2>
+            <p>Pick a flavour, grab a spoon, and let the sweetness begin.</p>
+            <a href="{% url 'products' %}" class="about-button dark-button">
+                Explore the scoops <span>→</span>
+            </a>
+        </div>
+        <div class="cta-emoji" aria-hidden="true">🍦🍓🍨</div>
+        <div class="cta-sprinkle sprinkle-right">♡</div>
+    </section>
+
+    <div class="about-signoff">
+        <span>♡</span> Scoops of happiness, made for you. <span>♡</span>
+    </div>
+
+</section>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'shop/js/about.js' %}" defer></script>
+{% endblock %}

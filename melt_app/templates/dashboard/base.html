@@ -1,0 +1,246 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Melt & Munch Dashboard{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+          <link rel="stylesheet" href="{% static 'dashboard/css/base.css' %}">
+
+
+    {% block page_css %}{% endblock %}
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <span>🍦</span>
+            <div>
+                <h2>Melt <b>&</b> Munch</h2>
+                <small>OWNER DASHBOARD</small>
+            </div>
+        </div>
+
+        <div class="sidebar-heading">MAIN MENU</div>
+
+        <a href="{% url 'admin_dashboard' %}" class="side-link">
+            <i class="fa-solid fa-chart-pie"></i>
+            Dashboard
+        </a>
+
+        <a href="{% url 'dashboard_icecreams' %}" class="side-link">
+            <i class="fa-solid fa-ice-cream"></i>
+            Ice Creams
+        </a>
+
+        <a href="{% url 'dashboard_products' %}" class="side-link">
+            <i class="fa-solid fa-box-open"></i>
+            Products
+        </a>
+
+        <a href="{% url 'dashboard_orders' %}" class="side-link">
+            <i class="fa-solid fa-bag-shopping"></i>
+            Orders
+        </a>
+
+        <a href="{% url 'dashboard_customers' %}" class="side-link">
+            <i class="fa-solid fa-users"></i>
+            Customers
+        </a>
+
+        <a href="{% url 'dashboard_inventory' %}" class="side-link">
+            <i class="fa-solid fa-warehouse"></i>
+            Inventory
+        </a>
+
+        <a href="{% url 'dashboard_messages' %}" class="side-link">
+            <i class="fa-solid fa-envelope"></i>
+            Messages
+        </a>
+
+        <div class="sidebar-bottom">
+
+            <a href="{% url 'home' %}" class="side-link">
+                <i class="fa-solid fa-store"></i>
+                Visit Website
+            </a>
+
+            <a href="{% url 'admin:index' %}" class="side-link">
+                <i class="fa-solid fa-gear"></i>
+                Django Admin
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button class="menu-toggle" id="menuToggle"
+                    aria-label="Toggle sidebar">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <div class="topbar-heading">
+                <h3>{% block page_heading %}Dashboard{% endblock %}</h3>
+                <p>Sweet moments start here 💗</p>
+            </div>
+
+
+            <!-- PROFILE DROPDOWN -->
+            <div class="admin-profile-dropdown" id="adminProfile">
+
+                <button type="button"
+                        class="admin-profile"
+                        id="profileToggle"
+                        aria-expanded="false"
+                        aria-controls="profileMenu">
+
+                    <div class="admin-avatar">🍨</div>
+
+                    <div class="admin-profile-info">
+                        <strong>{{ request.user.username|upper }}</strong>
+                        <small>Administrator</small>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+                </button>
+
+
+                <div class="profile-menu" id="profileMenu">
+
+                    <div class="profile-menu-top">
+
+                        <div class="profile-menu-avatar">🍦</div>
+
+                        <div>
+                            <h4>{{ request.user.username }}</h4>
+                            <span>Admin Account</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-information">
+
+                        <div class="profile-info-item">
+                            <i class="fa-solid fa-user"></i>
+                            <div>
+                                <small>Full Name</small>
+                                <p>{{ request.user.get_full_name|default:request.user.username }}</p>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <small>Email Address</small>
+                                <p>{{ request.user.email|default:"Not provided" }}</p>
+                            </div>
+                        </div>
+
+                        <div class="profile-info-item">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div>
+                                <small>Account Type</small>
+                                <p>Administrator</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-menu-divider"></div>
+
+                    <form method="POST" action="{% url 'admin_logout' %}">
+                        {% csrf_token %}
+
+                        <button type="submit" class="profile-logout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Logout
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        {% if messages %}
+            <div class="messages-area">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+        <section class="page-content">
+            {% block content %}{% endblock %}
+        </section>
+
+    </main>
+
+</div>
+<script>
+    
+document.addEventListener("DOMContentLoaded", function () {
+
+    const profile = document.getElementById("adminProfile");
+    const toggle = document.getElementById("profileToggle");
+
+    if (!profile || !toggle) return;
+
+    toggle.addEventListener("click", function (event) {
+        event.stopPropagation();
+
+        const isOpen = profile.classList.toggle("active");
+
+        toggle.setAttribute("aria-expanded", isOpen);
+    });
+
+    document.addEventListener("click", function (event) {
+
+        if (!profile.contains(event.target)) {
+            profile.classList.remove("active");
+            toggle.setAttribute("aria-expanded", "false");
+        }
+
+    });
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+            profile.classList.remove("active");
+            toggle.setAttribute("aria-expanded", "false");
+        }
+
+    });
+
+});
+
+</script>
+
+{% block page_js %}{% endblock %}
+
+</body>
+</html>

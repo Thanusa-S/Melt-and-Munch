@@ -1,0 +1,84 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Products | Melt & Munch{% endblock %}
+{% block page_heading %}Store Products{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'dashboard/css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="products-heading">
+    <div>
+        <h2>All Store Products 🛍️</h2>
+        <p>Manage the products shown in your online store.</p>
+    </div>
+</div>
+
+<form method="get" class="products-search">
+    <input type="search" name="search"
+           value="{{ search }}"
+           placeholder="Search products...">
+    <button type="submit">Search</button>
+    <a href="{% url 'dashboard_products' %}">Clear</a>
+</form>
+
+<div class="products-table-panel">
+
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Featured</th>
+                    <th>Availability</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>
+                        {% if product.image %}
+                            <img class="product-thumb"
+                                 src="{{ product.image.url }}"
+                                 alt="{{ product.name }}">
+                        {% else %}
+                            <span class="product-placeholder">🍦</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category.name }}</td>
+                    <td>₹{{ product.price }}</td>
+                    <td>
+                        {% if product.is_featured %}Yes{% else %}No{% endif %}
+                    </td>
+                    <td>
+                        {% if product.is_available %}
+                            <span class="product-available">Available</span>
+                        {% else %}
+                            <span class="product-unavailable">Unavailable</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="empty-row">No products found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'dashboard/js/products.js' %}" defer></script>
+{% endblock %}

@@ -1,0 +1,174 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard | Melt & Munch{% endblock %}
+{% block page_heading %}Dashboard Overview{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet"
+      href="{% static 'dashboard/css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="welcome-banner">
+    <div>
+        <span>YOUR SWEET BUSINESS AT A GLANCE</span>
+        <h1>Welcome back, {{ request.user.username }}! 🍦</h1>
+        <p>Here's what's happening at Melt & Munch today.</p>
+    </div>
+    <div class="welcome-art">🍨</div>
+</div>
+
+
+<div class="stats-grid">
+
+    <div class="stat-card pink">
+        <div class="stat-icon">₹</div>
+        <div>
+            <p>Today's Completed Sales</p>
+            <h2>₹{{ total_sales|floatformat:2 }}</h2>
+        </div>
+    </div>
+
+    <div class="stat-card yellow">
+        <div class="stat-icon">🛍️</div>
+        <div>
+            <p>Total Orders</p>
+            <h2>{{ total_orders }}</h2>
+        </div>
+    </div>
+
+    <div class="stat-card purple">
+        <div class="stat-icon">🍦</div>
+        <div>
+            <p>Ice Cream Flavours</p>
+            <h2>{{ total_icecreams }}</h2>
+        </div>
+    </div>
+
+    <div class="stat-card green">
+        <div class="stat-icon">👥</div>
+        <div>
+            <p>Customers</p>
+            <h2>{{ total_customers }}</h2>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="dashboard-columns">
+
+    <div class="panel recent-panel">
+
+        <div class="panel-heading">
+            <div>
+                <h2>Recent Orders</h2>
+                <p>Your latest customer orders</p>
+            </div>
+
+            <a href="{% url 'dashboard_orders' %}">View all →</a>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order</th>
+                        <th>Customer</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for order in recent_orders %}
+                    <tr>
+                        <td>#{{ order.id }}</td>
+                        <td>{{ order.full_name }}</td>
+                        <td>₹{{ order.total_price }}</td>
+                        <td>
+                            <span class="status {{ order.status }}">
+                                {{ order.get_status_display }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">No orders yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+    <div class="panel quick-panel">
+
+        <h2>Quick Actions ✨</h2>
+        <p>Manage your sweet business</p>
+
+        <a href="{% url 'add_icecream' %}" class="quick-action">
+            <span>🍦</span>
+            <div>
+                <strong>Add Ice Cream</strong>
+                <small>Add a new flavour</small>
+            </div>
+            <b>→</b>
+        </a>
+
+        <a href="{% url 'dashboard_icecreams' %}" class="quick-action">
+            <span>📦</span>
+            <div>
+                <strong>Manage Flavours</strong>
+                <small>Update your collection</small>
+            </div>
+            <b>→</b>
+        </a>
+
+        <a href="{% url 'dashboard_orders' %}" class="quick-action">
+            <span>🛍️</span>
+            <div>
+                <strong>Manage Orders</strong>
+                <small>{{ pending_orders }} placed orders</small>
+            </div>
+            <b>→</b>
+        </a>
+
+        <a href="{% url 'dashboard_inventory' %}" class="quick-action">
+            <span>⚠️</span>
+            <div>
+                <strong>Low Stock</strong>
+                <small>{{ low_stock }} flavours need attention</small>
+            </div>
+            <b>→</b>
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="panel best-panel">
+    <h2>Best-selling Items 🏆</h2>
+
+    {% for item in best_sellers %}
+        <div class="best-item">
+            <span>🍨</span>
+            <strong>{{ item.product_name }}</strong>
+            <small>{{ item.sold }} sold</small>
+        </div>
+    {% empty %}
+        <p>No sales recorded yet.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'dashboard/js/dashboard.js' %}" defer></script>
+{% endblock %}

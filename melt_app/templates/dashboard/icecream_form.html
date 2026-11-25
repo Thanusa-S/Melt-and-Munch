@@ -1,0 +1,80 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }} | Melt & Munch{% endblock %}
+{% block page_heading %}{{ page_title }}{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'dashboard/css/icecream_form.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="form-page">
+
+    <div class="form-heading">
+        <span>🍦</span>
+        <div>
+            <h2>{{ page_title }}</h2>
+            <p>Give your customers another reason to smile.</p>
+        </div>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" id="icecreamForm">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="form-errors">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <div class="form-grid">
+
+            {% for field in form %}
+
+                {% if field.name == "is_available" or field.name == "is_featured" %}
+                    <div class="checkbox-field">
+                        {{ field }}
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                        </label>
+                    </div>
+                {% else %}
+                    <div class="form-field
+                        {% if field.name == 'description' %}full-width{% endif %}">
+
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.errors %}
+                            <div class="field-error">{{ field.errors }}</div>
+                        {% endif %}
+
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+        <div class="form-buttons">
+            <a href="{% url 'dashboard_icecreams' %}" class="cancel-btn">
+                Cancel
+            </a>
+
+            <button type="submit" class="save-btn">
+                Save Ice Cream 💗
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'dashboard/js/icecream_form.js' %}" defer></script>
+{% endblock %}

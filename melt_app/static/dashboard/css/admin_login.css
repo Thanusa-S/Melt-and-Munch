@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Pacifico&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 20px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(
+        135deg,
+        #ffe0ed,
+        #fff0c9,
+        #e5ddff,
+        #d8f7ef
+    );
+}
+
+.login-card {
+    width: 100%;
+    max-width: 440px;
+    padding: 42px 38px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.92);
+    border: 2px solid white;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(160, 75, 115, 0.16);
+    position: relative;
+    z-index: 2;
+    animation: appear 0.7s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.brand-icon {
+    width: 78px;
+    height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    background: #ffe4ef;
+    border-radius: 25px;
+    font-size: 42px;
+    transform: rotate(-7deg);
+}
+
+.welcome-text {
+    color: #d84c91;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+h1 {
+    margin-top: 8px;
+    color: #633b64;
+    font-size: 35px;
+    font-weight: 800;
+}
+
+h1 span {
+    color: #ef75a9;
+    font-family: 'Pacifico', cursive;
+}
+
+.subtitle {
+    margin-top: 8px;
+    color: #927d91;
+    font-size: 12px;
+}
+
+.admin-tag {
+    display: inline-block;
+    margin: 22px 0;
+    padding: 9px 19px;
+    color: #bd4380;
+    background: #fff0f6;
+    border: 1px solid #ffd1e4;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.form-group {
+    margin-bottom: 19px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #654b63;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.form-group input {
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+    color: #5e465b;
+    background: #fff9fc;
+    border: 1.5px solid #f1d9e7;
+    border-radius: 13px;
+    outline: none;
+    font-family: inherit;
+    font-size: 12px;
+    transition: 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #e879ad;
+    box-shadow: 0 0 0 4px rgba(232, 121, 173, 0.12);
+}
+
+.form-group input::placeholder {
+    color: #b9a6b4;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 48px;
+}
+
+.password-wrapper button {
+    position: absolute;
+    top: 50%;
+    right: 13px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.login-btn {
+    width: 100%;
+    height: 52px;
+    margin-top: 8px;
+    color: white;
+    background: linear-gradient(110deg, #ec75aa, #c75bc2);
+    border: none;
+    border-radius: 14px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-btn span {
+    margin-left: 7px;
+    font-size: 18px;
+}
+
+.login-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 20px rgba(205, 85, 157, 0.25);
+}
+
+.error-message {
+    margin-bottom: 18px;
+    padding: 12px;
+    color: #b42345;
+    background: #fff0f1;
+    border: 1px solid #ffcbd2;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.footer-text {
+    margin-top: 25px;
+    color: #a18b9d;
+    font-size: 11px;
+}
+
+.back-home {
+    display: inline-block;
+    margin-top: 13px;
+    color: #ce5797;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.back-home:hover {
+    color: #913c79;
+}
+
+.decoration {
+    position: absolute;
+    font-size: 55px;
+    opacity: 0.75;
+    animation: float 4s ease-in-out infinite;
+}
+
+.decoration-one {
+    top: 12%;
+    left: 13%;
+}
+
+.decoration-two {
+    top: 18%;
+    right: 14%;
+    animation-delay: 1s;
+}
+
+.decoration-three {
+    bottom: 13%;
+    left: 16%;
+    animation-delay: 2s;
+}
+
+.decoration-four {
+    bottom: 12%;
+    right: 13%;
+    animation-delay: 0.5s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(-8deg);
+    }
+    50% {
+        transform: translateY(-17px) rotate(8deg);
+    }
+}
+
+@media (max-width: 500px) {
+    .login-card {
+        padding: 35px 23px;
+    }
+
+    h1 {
+        font-size: 29px;
+    }
+
+    .decoration {
+        font-size: 35px;
+    }
+}

@@ -1,0 +1,614 @@
+
+/* =========================================
+   MELT & MUNCH - ORDER MANAGEMENT
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --pink: #f34f91;
+    --pink-dark: #d9367b;
+    --dark: #38263b;
+    --muted: #948594;
+    --white: #ffffff;
+    --border: #f5e8ef;
+    --light-pink: #fff0f6;
+    --background: #fff9f5;
+}
+
+.orders-page {
+    width: 100%;
+    color: var(--dark);
+    font-family: 'Poppins', sans-serif;
+}
+
+/* =========================================
+   PAGE HEADING
+   ========================================= */
+
+.list-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 27px 30px;
+    margin-bottom: 24px;
+    border-radius: 22px;
+    background: linear-gradient(
+        115deg,
+        #ffe0ed,
+        #f3e4ff,
+        #fff0d9
+    );
+    box-shadow: 0 8px 25px rgba(190, 115, 155, 0.08);
+}
+
+.heading-tag {
+    display: inline-block;
+    color: #e84393;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 9px;
+}
+
+.list-heading h2 {
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--dark);
+}
+
+.list-heading h2 span {
+    font-size: 24px;
+}
+
+.list-heading p {
+    color: #88758b;
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+.orders-icon {
+    width: 65px;
+    height: 65px;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--pink);
+    font-size: 27px;
+}
+
+/* =========================================
+   FILTER SECTION
+   ========================================= */
+
+.order-filter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: var(--white);
+    padding: 17px 20px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    margin-bottom: 23px;
+    box-shadow: 0 5px 20px rgba(65, 30, 60, 0.035);
+}
+
+.filter-label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #49344e;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+}
+
+.filter-label i {
+    color: #ed4d91;
+    font-size: 15px;
+}
+
+.order-filter select,
+.status-form select {
+    padding: 11px 13px;
+    border: 1px solid #eddfE8;
+    border-radius: 10px;
+    background: #fffafd;
+    color: #57435c;
+    font-family: inherit;
+    font-size: 11px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.order-filter select {
+    min-width: 170px;
+}
+
+.order-filter select:focus,
+.status-form select:focus {
+    border-color: var(--pink);
+    box-shadow: 0 0 0 3px rgba(243, 79, 145, 0.10);
+}
+
+.order-filter button {
+    border: none;
+    border-radius: 10px;
+    padding: 11px 17px;
+    background: var(--pink);
+    color: white;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.order-filter button:hover {
+    background: var(--pink-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(243, 79, 145, 0.2);
+}
+
+.clear-filter {
+    padding: 10px 12px;
+    color: #e84393;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.clear-filter:hover {
+    text-decoration: underline;
+}
+
+/* =========================================
+   ORDER TABLE PANEL
+   ========================================= */
+
+.order-table-panel {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 19px;
+    padding: 24px;
+    box-shadow: 0 6px 25px rgba(65, 30, 60, 0.04);
+    overflow: hidden;
+}
+
+.table-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.table-heading h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+.table-heading p {
+    font-size: 11px;
+    color: #a18da3;
+    margin-top: 5px;
+}
+
+.order-count {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border-radius: 10px;
+    background: var(--light-pink);
+    color: #e84393;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* =========================================
+   TABLE SCROLL
+   ========================================= */
+
+.table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #f4eaf0;
+    border-radius: 13px;
+}
+
+.table-scroll::-webkit-scrollbar {
+    height: 7px;
+}
+
+.table-scroll::-webkit-scrollbar-track {
+    background: #fff5f9;
+    border-radius: 10px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+    background: #f3a3c3;
+    border-radius: 10px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--pink);
+}
+
+/* =========================================
+   MAIN TABLE
+   ========================================= */
+
+.orders-table {
+    width: 100%;
+    min-width: 1200px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+/* COLUMN WIDTHS */
+
+.orders-table th:nth-child(1),
+.orders-table td:nth-child(1) {
+    width: 85px;
+}
+
+.orders-table th:nth-child(2),
+.orders-table td:nth-child(2) {
+    width: 210px;
+}
+
+.orders-table th:nth-child(3),
+.orders-table td:nth-child(3) {
+    width: 140px;
+}
+
+.orders-table th:nth-child(4),
+.orders-table td:nth-child(4) {
+    width: 205px;
+}
+
+.orders-table th:nth-child(5),
+.orders-table td:nth-child(5) {
+    width: 110px;
+}
+
+.orders-table th:nth-child(6),
+.orders-table td:nth-child(6) {
+    width: 125px;
+}
+
+.orders-table th:nth-child(7),
+.orders-table td:nth-child(7) {
+    width: 115px;
+}
+
+.orders-table th:nth-child(8),
+.orders-table td:nth-child(8) {
+    width: 175px;
+}
+
+/* TABLE HEADER */
+
+.orders-table thead {
+    background: #fff5f9;
+}
+
+.orders-table th {
+    padding: 16px 12px;
+    color: #9b8499;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    white-space: nowrap;
+}
+
+/* TABLE BODY */
+
+.orders-table td {
+    padding: 17px 12px;
+    border-top: 1px solid #f5edf1;
+    color: #655568;
+    font-size: 11px;
+    vertical-align: middle;
+}
+
+.orders-table tbody tr {
+    transition: background 0.2s;
+}
+
+.orders-table tbody tr:hover {
+    background: #fffbfd;
+}
+
+/* =========================================
+   ORDER ID
+   ========================================= */
+
+.order-id {
+    color: #e84393;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* =========================================
+   CUSTOMER DETAILS
+   ========================================= */
+
+.customer-info {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+}
+
+.customer-avatar {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #ffe5ef;
+    color: #e84393;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.customer-info > div:last-child {
+    min-width: 0;
+}
+
+.customer-info strong {
+    display: block;
+    color: #49344e;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.customer-info small {
+    display: block;
+    color: #a18da3;
+    font-size: 9px;
+    margin-top: 5px;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================
+   PHONE
+   ========================================= */
+
+.orders-table td:nth-child(3) {
+    white-space: nowrap;
+}
+
+/* =========================================
+   ORDER ITEMS
+   ========================================= */
+
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.order-items span {
+    display: block;
+    color: #766579;
+    font-size: 10px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================
+   TOTAL AND DATE
+   ========================================= */
+
+.order-total {
+    color: var(--dark);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.order-date {
+    color: #837387;
+    white-space: nowrap;
+}
+
+/* =========================================
+   ORDER STATUS BADGES
+   ========================================= */
+
+.order-status {
+    display: inline-block;
+    padding: 7px 11px;
+    border-radius: 20px;
+    background: #fff0d7;
+    color: #a36d16;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.order-status.processing {
+    background: #eee5ff;
+    color: #7952c0;
+}
+
+.order-status.shipped {
+    background: #e4f2ff;
+    color: #327cb6;
+}
+
+.order-status.completed {
+    background: #e2f7e9;
+    color: #27814c;
+}
+
+.order-status.cancelled {
+    background: #ffe5e5;
+    color: #c54848;
+}
+
+/* =========================================
+   UPDATE STATUS FORM
+   ========================================= */
+
+.status-form {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.status-form select {
+    width: 112px;
+    min-width: 0;
+    padding: 9px 7px;
+    border: 1px solid #eddfE8;
+    border-radius: 9px;
+    background: #fffafd;
+    color: #57435c;
+    font-family: inherit;
+    font-size: 10px;
+}
+
+.status-form button {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border: none;
+    border-radius: 9px;
+    background: var(--pink);
+    color: white;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.status-form button:hover {
+    background: var(--pink-dark);
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   EMPTY ORDERS
+   ========================================= */
+
+.empty-row {
+    text-align: center;
+    padding: 40px 20px !important;
+}
+
+.empty-icon {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.empty-row h3 {
+    color: #49344e;
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.empty-row p {
+    color: #a18da3;
+    font-size: 11px;
+    margin-bottom: 15px;
+}
+
+.empty-row a {
+    display: inline-block;
+    background: var(--light-pink);
+    color: #e84393;
+    padding: 9px 15px;
+    border-radius: 9px;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
+
+@media (max-width: 1100px) {
+    .order-table-panel {
+        padding: 18px;
+    }
+
+    .orders-table {
+        min-width: 1200px;
+    }
+}
+
+@media (max-width: 900px) {
+    .list-heading {
+        padding: 22px;
+    }
+
+    .order-filter {
+        gap: 10px;
+    }
+
+    .table-heading {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 600px) {
+    .list-heading {
+        padding: 20px;
+        border-radius: 16px;
+    }
+
+    .list-heading h2 {
+        font-size: 20px;
+    }
+
+    .list-heading p {
+        font-size: 11px;
+    }
+
+    .orders-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 21px;
+    }
+
+    .order-filter {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .order-filter select,
+    .order-filter button {
+        width: 100%;
+    }
+
+    .filter-label {
+        margin-bottom: 3px;
+    }
+
+    .order-table-panel {
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .table-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .table-scroll {
+        overflow-x: auto;
+    }
+}

@@ -1,0 +1,180 @@
+
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Contact Us | Melt & Munch{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'shop/css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="contact-page">
+
+    <!-- Decorative background -->
+    <span class="contact-spark spark-one">✦</span>
+    <span class="contact-spark spark-two">♡</span>
+    <span class="contact-spark spark-three">✿</span>
+
+    <!-- Hero and form -->
+    <div class="contact-hero">
+
+        <div class="contact-copy">
+            <span class="eyebrow">💌 LET'S CHAT, SCOOP FRIEND</span>
+
+            <h1>Got a question?<br>
+                <em>We're all ears.</em>
+            </h1>
+
+            <p class="contact-intro">
+                Tell us what's on your mind: a flavour idea, an order
+                question, or just a little hello. We'd love to hear from you!
+            </p>
+
+            <div class="contact-photo-wrap">
+                <img
+                    src="{% static 'shop/picture/ice3.jpg' %}"
+                    alt="A colourful selection of delicious ice creams"
+                    class="contact-photo"
+                    loading="lazy"
+                >
+                <div class="photo-sticker">GOOD VIBES<br>ONLY 💗</div>
+                <span class="photo-heart">♡</span>
+            </div>
+
+            <div class="contact-perks">
+                <div class="perk">
+                    <span>🍦</span>
+                    <strong>Fresh flavours</strong>
+                </div>
+                <div class="perk">
+                    <span>💖</span>
+                    <strong>Happy customers</strong>
+                </div>
+                <div class="perk">
+                    <span>😊</span>
+                    <strong>Always here</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Django contact form -->
+        <div class="contact-form-card">
+            <div class="form-decoration">🍨</div>
+
+            <span class="form-kicker">A LITTLE NOTE FROM YOU</span>
+            <h2>Send us a <em>message!</em></h2>
+            <p class="form-subtitle">We promise to make your day a little sweeter.</p>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="contact-success" role="status">
+                        💖 {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" class="contact-form" id="contactForm" novalidate>
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="field-error">
+                        {{ form.non_field_errors|striptags }}
+                    </div>
+                {% endif %}
+
+                {% for field in form %}
+                    <div class="field-wrap">
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                            {% if field.field.required %}<span>*</span>{% endif %}
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.help_text %}
+                            <small class="field-help">{{ field.help_text }}</small>
+                        {% endif %}
+
+                        {% if field.errors %}
+                            <small class="field-error">
+                                {{ field.errors|striptags }}
+                            </small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div id="contactError" class="field-error" role="alert"></div>
+
+                <button type="submit" class="contact-submit" id="contactSubmit">
+                    <span>Send my message</span>
+                    <span class="submit-emoji">💌</span>
+                </button>
+
+                <p class="privacy-note">🍓 Your message matters to us.</p>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Flavour idea banner -->
+    <section class="flavour-banner">
+        <div class="banner-photo">
+            <img
+                src="{% static 'shop/picture/ice2.jpg' %}"
+                alt="Ice cream scoops ready to enjoy"
+                loading="lazy"
+            >
+        </div>
+
+        <div class="banner-copy">
+            <span>HAVE A SWEET IDEA?</span>
+            <h2>Your flavour could be our next favourite!</h2>
+            <p>Share your dream flavour with us. Sprinkles, cookies, fruit or something totally new!</p>
+            <a href="#contactForm" class="idea-link">
+                Share your idea <span>→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact information -->
+    <section class="contact-info">
+        <div class="info-card">
+            <span class="info-icon pink-icon">📍</span>
+            <h3>Visit Us</h3>
+            <p>Come by and say hello!</p>
+            <small>See our store address for directions.</small>
+        </div>
+
+        <div class="info-card">
+            <span class="info-icon mint-icon">📞</span>
+            <h3>Call Us</h3>
+            <p>Need help with an order?</p>
+            <small>Use the phone number listed by our store.</small>
+        </div>
+
+        <div class="info-card">
+            <span class="info-icon purple-icon">✉️</span>
+            <h3>Email Us</h3>
+            <p>We'd love to hear from you.</p>
+            <small>Send your questions through the form above.</small>
+        </div>
+
+        <div class="info-card">
+            <span class="info-icon yellow-icon">💗</span>
+            <h3>Spread the Love</h3>
+            <p>Every scoop has a story.</p>
+            <small>Follow our social pages for sweet updates.</small>
+        </div>
+    </section>
+
+    <div class="contact-signoff">
+        <span>♡</span> Because every scoop tells a story <span>♡</span>
+    </div>
+
+</section>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'shop/js/contact.js' %}" defer></script>
+{% endblock %}

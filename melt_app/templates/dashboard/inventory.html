@@ -1,0 +1,90 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Inventory | Melt & Munch{% endblock %}
+{% block page_heading %}Inventory Management{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'dashboard/css/inventory.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="inventory-heading">
+    <div>
+        <h2>Ice Cream Stock Control 📦</h2>
+        <p>Keep track of available flavours and stock quantities.</p>
+    </div>
+
+    <div class="stock-warning">
+        ⚠️ {{ low_stock_count }} low-stock items
+    </div>
+</div>
+
+<div class="inventory-panel">
+
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr>
+                    <th>Ice Cream</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Stock Level</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for ice in icecreams %}
+                <tr>
+                    <td>
+                        <div class="inventory-product">
+                            {% if ice.image %}
+                                <img src="{{ ice.image.url }}" alt="{{ ice.name }}">
+                            {% else %}
+                                <span>🍨</span>
+                            {% endif %}
+                            <strong>{{ ice.name }}</strong>
+                        </div>
+                    </td>
+
+                    <td>{{ ice.get_category_display }}</td>
+                    <td>₹{{ ice.price }}</td>
+                    <td>{{ ice.stock_quantity }}</td>
+
+                    <td>
+                        {% if ice.stock_quantity == 0 %}
+                            <span class="stock-badge out">Out of stock</span>
+                        {% elif ice.stock_quantity <= 5 %}
+                            <span class="stock-badge low">Low stock</span>
+                        {% else %}
+                            <span class="stock-badge good">In stock</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <a href="{% url 'edit_icecream' ice.pk %}"
+                           class="stock-edit">Update</a>
+                    </td>
+                </tr>
+
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="empty-row">
+                        No inventory records found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'dashboard/js/inventory.js' %}" defer></script>
+{% endblock %}

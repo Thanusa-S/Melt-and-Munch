@@ -1,0 +1,262 @@
+.orders-hero {
+    margin: 35px auto;
+    width: 92%;
+    min-height: 230px;
+    padding: 45px 55px;
+    border-radius: 30px;
+    background: linear-gradient(120deg, #ffe0ed, #f5e5ff, #fff0d9);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.orders-hero-content > span {
+    color: #d63384;
+    font-weight: 800;
+    letter-spacing: 2px;
+    font-size: 12px;
+}
+
+.orders-hero h1 {
+    font-size: clamp(38px, 5vw, 60px);
+    color: #47283f;
+    margin: 12px 0;
+    font-weight: 800;
+}
+
+.orders-hero h1 em {
+    color: #d63384;
+}
+
+.orders-hero p {
+    color: #76576e;
+    font-size: 16px;
+}
+
+.orders-hero-icon {
+    font-size: 100px;
+    transform: rotate(-12deg);
+}
+
+.orders-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 50px auto;
+}
+
+.orders-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+.orders-kicker {
+    color: #d63384;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.orders-heading h2 {
+    color: #43283d;
+    margin-top: 7px;
+    font-size: 28px;
+}
+
+.shop-more-btn {
+    text-decoration: none;
+    background: #d63384;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 25px;
+    font-weight: 700;
+}
+
+.shop-more-btn:hover {
+    background: #ad2166;
+    color: white;
+}
+
+.order-card {
+    background: white;
+    border: 1px solid #f2dce8;
+    border-radius: 22px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 25px rgba(120, 65, 100, .07);
+    transition: .3s ease;
+}
+
+.order-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(120, 65, 100, .12);
+}
+
+.order-card-top,
+.order-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.order-label {
+    color: #987b90;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.order-card-top h3 {
+    color: #4a2942;
+    margin-top: 5px;
+}
+
+.order-status {
+    padding: 9px 17px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.status-placed {
+    background: #fff0c9;
+    color: #a56a00;
+}
+
+.status-processing {
+    background: #e8e1ff;
+    color: #6745b5;
+}
+
+.status-shipped {
+    background: #dff2ff;
+    color: #2876a9;
+}
+
+.status-delivered {
+    background: #dcf8e9;
+    color: #238451;
+}
+
+.status-cancelled {
+    background: #ffe1e1;
+    color: #c23c3c;
+}
+
+.order-products {
+    margin: 22px 0;
+    border-top: 1px solid #f4e7ef;
+    border-bottom: 1px solid #f4e7ef;
+    padding: 10px 0;
+}
+
+.order-product {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 0;
+}
+
+.order-product-icon {
+    width: 55px;
+    height: 55px;
+    display: grid;
+    place-items: center;
+    background: #fff0f6;
+    border-radius: 15px;
+    font-size: 27px;
+}
+
+.order-product-info {
+    flex: 1;
+}
+
+.order-product-info h4 {
+    color: #493044;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+
+.order-product-info p {
+    color: #987b90;
+    font-size: 13px;
+    margin: 0;
+}
+
+.order-product > strong {
+    color: #d63384;
+}
+
+.order-card-bottom h3 {
+    color: #d63384;
+    margin-top: 5px;
+    font-size: 24px;
+}
+
+.order-thankyou {
+    color: #d63384;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.no-orders {
+    text-align: center;
+    background: linear-gradient(135deg, #fff0f6, #f4edff);
+    padding: 65px 20px;
+    border-radius: 25px;
+}
+
+.no-orders-icon {
+    font-size: 65px;
+}
+
+.no-orders h2 {
+    color: #493044;
+    margin: 15px 0;
+}
+
+.no-orders p {
+    color: #987b90;
+    margin-bottom: 25px;
+}
+
+.no-orders a {
+    display: inline-block;
+    background: #d63384;
+    color: white;
+    padding: 13px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+@media(max-width: 600px) {
+    .orders-hero {
+        padding: 30px 22px;
+        min-height: 180px;
+    }
+
+    .orders-hero-icon {
+        font-size: 60px;
+    }
+
+    .orders-container {
+        width: 94%;
+    }
+
+    .order-card {
+        padding: 18px;
+    }
+
+    .orders-heading h2 {
+        font-size: 22px;
+    }
+
+    .order-thankyou {
+        display: none;
+    }
+}

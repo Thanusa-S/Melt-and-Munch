@@ -1,0 +1,31 @@
+.success-card {
+    text-align: center;
+    max-width: 680px;
+    margin: 65px auto;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    padding: clamp(28px, 6vw, 60px);
+    box-shadow: var(--shadow);
+}
+
+.success-emoji {
+    font-size: 4.5rem;
+    animation: pageIn .6s ease;
+}
+
+.success-total {
+    display: flex;
+    justify-content: space-between;
+    max-width: 340px;
+    margin: 25px auto;
+    padding: 17px;
+    background: #fff0f6;
+    border-radius: 14px;
+    font-weight: 900;
+}
+
+.success-total strong {
+    font-family: "Fredoka", sans-serif;
+    font-size: 1.3rem;
+}

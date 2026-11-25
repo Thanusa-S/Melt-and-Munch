@@ -1,0 +1,48 @@
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 17px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    margin-bottom: 28px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid #e9dce6;
+    border-radius: 999px;
+    padding: 0 14px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.search-box input {
+    border: 0;
+    outline: 0;
+    padding: 12px 0;
+    width: 100%;
+}
+
+.filter-bar select {
+    padding: 12px;
+    border: 1px solid #e9dce6;
+    border-radius: 999px;
+    background: white;
+}
+
+.short-description {
+    font-size: .88rem;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.no-matches {
+    text-align: center;
+    padding: 25px;
+    font-weight: 900;
+}

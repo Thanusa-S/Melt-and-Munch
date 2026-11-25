@@ -1,0 +1,164 @@
+
+
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Login | Melt & Munch{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'shop/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="login-page">
+
+    <div class="login-decoration sprinkle-one">✦</div>
+    <div class="login-decoration sprinkle-two">♡</div>
+    <div class="login-decoration sprinkle-three">✿</div>
+
+    <div class="login-container">
+
+        <!-- Left image panel -->
+        <div class="login-visual">
+            <img
+                class="icecream-photo"
+                src="{% static 'shop/picture/cone_color.jpg' %}"
+                alt="Delicious colourful ice cream"
+            >
+
+            <div class="visual-overlay"></div>
+
+            <a class="brand-logo" href="{% url 'home' %}">
+                🍦 Melt <span>&</span> Munch
+            </a>
+
+            <div class="visual-content">
+                <span class="visual-tag">A LITTLE SCOOP OF JOY</span>
+                <h1>Happiness is<br>just a <em>scoop</em> away!</h1>
+                <p>Life is sweeter with your favourite flavours.</p>
+
+                <div class="flavour-pills">
+                    <span>🍓 Strawberry</span>
+                    <span>🍫 Chocolate</span>
+                    <span>🍦 Vanilla</span>
+                </div>
+            </div>
+
+            <div class="photo-note">
+                <span class="note-icon">💗</span>
+                <div>
+                    <strong>Made for sweet moments</strong>
+                    <small>Your happy place awaits!</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right login panel -->
+        <div class="login-right">
+
+            <div class="floating-scoop scoop-one">🍨</div>
+            <div class="floating-scoop scoop-two">✨</div>
+
+            <form method="post" class="auth-form" id="loginForm" novalidate>
+                {% csrf_token %}
+
+                <div class="mobile-brand">🍦 Melt & Munch</div>
+
+                <span class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    WELCOME BACK, SWEET TOOTH!
+                </span>
+
+                <h2>Let's get you<br>back to your <em>happy place.</em></h2>
+
+                <p class="form-description">
+                    Sign in and discover your next favourite scoop.
+                </p>
+
+                {% if form.non_field_errors %}
+                    <div class="field-error server-error">
+                        {{ form.non_field_errors|striptags }}
+                    </div>
+                {% endif %}
+
+                
+{% for field in form %}
+    <div class="field-wrap">
+        <label for="{{ field.id_for_label }}">
+            {{ field.label }}
+        </label>
+
+        {% if field.name == "password" %}
+            <div class="password-wrapper">
+                {{ field }}
+
+                <button
+                    type="button"
+                    class="toggle-password"
+                    id="togglePassword"
+                    aria-label="Show password"
+                    aria-pressed="false"
+                >
+                    <svg id="eyeIcon"
+                         xmlns="http://www.w3.org/2000/svg"
+                         width="21"
+                         height="21"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.8"
+                         stroke-linecap="round"
+                         stroke-linejoin="round">
+                        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </button>
+            </div>
+        {% else %}
+            <div class="input-shell">
+                {{ field }}
+            </div>
+        {% endif %}
+
+        {% if field.errors %}
+            <small class="field-error">
+                {{ field.errors|striptags }}
+            </small>
+        {% endif %}
+    </div>
+{% endfor %}
+
+
+               
+
+                <input type="hidden" name="next" value="{{ next }}">
+
+                <div id="loginError" class="field-error" role="alert"></div>
+
+                <button type="submit" class="button button-pink auth-submit">
+                    <span>Let's scoop!</span>
+                    <span class="button-emoji">🍦</span>
+                </button>
+
+                <div class="login-divider">
+                    <span>sweetness is better shared</span>
+                </div>
+
+                <p class="auth-switch">
+                    New to our little world?
+                    <a href="{% url 'register' %}">Create an account ↗</a>
+                </p>
+
+                <div class="login-footer">
+                    Made with <span>♥</span> and a little extra sugar
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'shop/js/login.js' %}" defer></script>
+{% endblock %}

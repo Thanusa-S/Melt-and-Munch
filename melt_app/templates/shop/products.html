@@ -1,0 +1,105 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}Ice Creams | Melt & Munch{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="page-intro">
+    <span class="eyebrow">THE SCOOP SHOP</span>
+    <h1>Find your <em>happy flavour</em></h1>
+    <p>One tiny scoop, one giant smile.</p>
+</section>
+
+<form class="filter-bar" method="get" id="filterForm">
+    <label class="search-box">
+        🔎
+        <input type="search" name="q" id="productSearch"
+               value="{{ search_query }}"
+               placeholder="Search flavours...">
+    </label>
+
+    <label>
+        Category
+        <select name="category" id="categoryFilter">
+            <option value="">All flavours</option>
+
+            {% for category in categories %}
+            <option value="{{ category.slug }}"
+                {% if selected_category == category.slug %}
+                    selected
+                {% endif %}>
+                {{ category.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <button type="submit" class="button button-pink">
+        Find scoops
+    </button>
+
+    <a href="{% url 'products' %}" class="clear-filter">Clear</a>
+</form>
+
+<div class="product-grid listing-grid" id="productGrid">
+    {% for product in products %}
+    <article class="product-card filterable-card"
+             data-name="{{ product.name|lower }}"
+             data-category="{{ product.category.slug }}">
+
+        <a class="product-picture"
+           href="{% url 'product_detail' product.slug %}">
+            {% if product.image %}
+                <img src="{{ product.image.url }}"
+                     alt="{{ product.name }}">
+            {% else %}
+                <span class="placeholder-scoop">🍦</span>
+            {% endif %}
+            <span class="quick-badge">Yum!</span>
+        </a>
+
+        <div class="product-info">
+            <span class="category-label">{{ product.category.name }}</span>
+            <h3>
+                <a href="{% url 'product_detail' product.slug %}">
+                    {{ product.name }}
+                </a>
+            </h3>
+
+            <p>{{ product.description|truncatewords:12 }}</p>
+
+            <div class="product-bottom">
+                <strong>₹{{ product.price }}</strong>
+
+                <form method="post"
+                      action="{% url 'add_to_cart' product.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="next"
+                           value="{% url 'products' %}">
+                    <button type="submit" class="round-add">+</button>
+                </form>
+            </div>
+        </div>
+    </article>
+    {% empty %}
+    <div class="empty-products">
+        <span>🍨</span>
+        <h3>No scoops just yet</h3>
+        <p>Add products and categories in the admin panel.</p>
+    </div>
+    {% endfor %}
+</div>
+
+<p id="noMatches" class="no-matches" hidden>
+    No matching flavours. Try another search! 🍓
+</p>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/products.js' %}" defer></script>
+{% endblock %}

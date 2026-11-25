@@ -1,0 +1,200 @@
+
+{% extends 'shop/base.html' %}
+{% load static cart_extras %}
+
+{% block title %}Checkout | Melt & Munch{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'shop/css/checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="page-intro">
+    <span class="eyebrow">THE FINAL SPRINKLE</span>
+    <h1>Let's make it <em>official!</em></h1>
+    <p>One more step towards your happiness 🍦</p>
+</section>
+
+<div class="checkout-layout">
+
+    <!-- CUSTOMER DETAILS -->
+    <form method="post" class="checkout-form" id="checkoutForm">
+        {% csrf_token %}
+
+        <h2>👤 Customer Details</h2>
+
+        {% if form.non_field_errors %}
+            <div class="field-error">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        {% for field in form %}
+        <div class="field-wrap" id="field-{{ field.name }}">
+
+            <label for="{{ field.id_for_label }}">
+                {{ field.label }}
+            </label>
+
+            {{ field }}
+
+            {% if field.errors %}
+                <small class="field-error">
+                    {{ field.errors|striptags }}
+                </small>
+            {% endif %}
+
+        </div>
+        {% endfor %}
+
+        <hr>
+
+
+        
+<!-- ORDER TYPE -->
+<div class="selection-section">
+    <h2>🛍️ Order Type</h2>
+
+    <div class="selection-options">
+
+        <label class="selection-card">
+            <input type="radio" name="order_type"
+                   value="delivery" checked>
+
+            <span class="option-content">
+                <span class="option-icon">🚚</span>
+                <strong>Home Delivery</strong>
+                <small>Delivered to your doorstep</small>
+            </span>
+        </label>
+
+        <label class="selection-card">
+            <input type="radio" name="order_type"
+                   value="takeaway">
+
+            <span class="option-content">
+                <span class="option-icon">🛍️</span>
+                <strong>Take Away</strong>
+                <small>Collect your order</small>
+            </span>
+        </label>
+
+    </div>
+</div>
+
+
+<!-- PAYMENT METHOD -->
+<div class="selection-section">
+    <h2>💳 Payment Method</h2>
+
+    <div class="selection-options">
+
+        <label class="selection-card">
+            <input type="radio" name="payment_method"
+                   value="cod" checked>
+
+            <span class="option-content">
+                <span class="option-icon">💵</span>
+                <strong>Cash on Delivery</strong>
+                <small>Pay when you receive</small>
+            </span>
+        </label>
+
+        <label class="selection-card">
+            <input type="radio" name="payment_method"
+                   value="upi">
+
+            <span class="option-content">
+                <span class="option-icon">📱</span>
+                <strong>UPI Payment</strong>
+                <small>Pay using UPI</small>
+            </span>
+        </label>
+
+        <label class="selection-card">
+            <input type="radio" name="payment_method"
+                   value="card">
+
+            <span class="option-content">
+                <span class="option-icon">💳</span>
+                <strong>Debit / Credit Card</strong>
+                <small>Pay using your card</small>
+            </span>
+        </label>
+
+    </div>
+
+    <p class="payment-note">
+        ✨ UPI and card payments require payment gateway integration.
+    </p>
+</div>
+
+
+        <button type="submit"
+                class="button button-pink checkout-submit">
+            Place My Order 🍦
+        </button>
+
+    </form>
+
+
+    <!-- ORDER SUMMARY -->
+    <aside class="checkout-summary">
+
+        <h2>🍨 Your Sweet Order</h2>
+
+        {% for product, quantity, scoops, item_type in rows %}
+
+        <div class="checkout-product">
+
+            <div class="checkout-image">
+
+                {% if product.image %}
+                    <img src="{{ product.image.url }}"
+                         alt="{{ product.name }}">
+                {% else %}
+                    <span>🍦</span>
+                {% endif %}
+
+            </div>
+
+            <div class="checkout-product-details">
+
+                <h4>{{ product.name }}</h4>
+
+                <p>{{ quantity }} Cups × {{ scoops }} Scoops</p>
+
+                <small>₹{{ product.price }} per scoop</small>
+
+                <strong>
+                    ₹{{ product.price|multiply:quantity|multiply:scoops|floatformat:2 }}
+                </strong>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        <div class="summary-line">
+            <span>Total Cups</span>
+            <strong>{{ nav_cart_count }}</strong>
+        </div>
+
+        <div class="summary-line total-line">
+            <span>Grand Total</span>
+            <strong>₹{{ total|floatformat:2 }}</strong>
+        </div>
+
+        <p class="summary-note">
+            Thank you for choosing Melt & Munch! 💗
+        </p>
+
+    </aside>
+
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'shop/js/checkout.js' %}" defer></script>
+{% endblock %}

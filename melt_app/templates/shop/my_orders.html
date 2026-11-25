@@ -1,0 +1,108 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}My Orders | Melt & Munch{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'shop/css/my_orders.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="orders-hero">
+    <div class="orders-hero-content">
+        <span>🍓 YOUR SWEET JOURNEY</span>
+        <h1>My <em>Orders</em></h1>
+        <p>Every order is another little scoop of happiness!</p>
+    </div>
+    <div class="orders-hero-icon">🍦</div>
+</section>
+
+<section class="orders-container">
+
+    <div class="orders-heading">
+        <div>
+            <span class="orders-kicker">YOUR SCOOP HISTORY</span>
+            <h2>All Your Orders 💗</h2>
+        </div>
+        <a href="{% url 'ice_creams' %}" class="shop-more-btn">
+            Shop More +
+        </a>
+    </div>
+
+    {% if orders %}
+
+        {% for order in orders %}
+
+        <article class="order-card">
+
+            <div class="order-card-top">
+                <div>
+                    <span class="order-label">ORDER NUMBER</span>
+                    <h3>#MM{{ order.id }}</h3>
+                </div>
+
+                <span class="order-status
+                    {% if order.status == 'placed' %}status-placed
+                    {% elif order.status == 'processing' %}status-processing
+                    {% elif order.status == 'shipped' %}status-shipped
+                    {% elif order.status == 'delivered' %}status-delivered
+                    {% elif order.status == 'cancelled' %}status-cancelled
+                    {% endif %}">
+                    {{ order.get_status_display }}
+                </span>
+            </div>
+
+            <div class="order-products">
+
+                {% for item in order.order_items %}
+
+                <div class="order-product">
+                    <div class="order-product-icon">🍨</div>
+
+                    <div class="order-product-info">
+                        <h4>{{ item.product_name }}</h4>
+                        <p>Quantity: {{ item.quantity }}</p>
+                    </div>
+
+                    <strong>
+                        ₹{{ item.unit_price|floatformat:2 }}
+                    </strong>
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="order-card-bottom">
+                <div>
+                    <span class="order-label">TOTAL AMOUNT</span>
+                    <h3>₹{{ order.total_price|floatformat:2 }}</h3>
+                </div>
+
+                <div class="order-thankyou">
+                    Made with love 💕
+                </div>
+            </div>
+
+        </article>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="no-orders">
+            <div class="no-orders-icon">🍦</div>
+            <h2>No orders yet!</h2>
+            <p>Your sweet adventure is waiting to begin.</p>
+
+            <a href="{% url 'ice_creams' %}">
+                Explore Ice Creams →
+            </a>
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

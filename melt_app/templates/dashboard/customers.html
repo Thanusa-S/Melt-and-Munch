@@ -1,0 +1,66 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Customers | Melt & Munch{% endblock %}
+{% block page_heading %}Customer Management{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{% static 'dashboard/css/customers.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="customer-heading">
+    <h2>Our Sweet Customers 💗</h2>
+    <p>View the customers registered on your website.</p>
+</div>
+
+<form method="get" class="customer-search">
+    <input type="search" name="search"
+           value="{{ search }}"
+           placeholder="Search by username or email...">
+    <button type="submit">Search</button>
+    <a href="{% url 'dashboard_customers' %}">Clear</a>
+</form>
+
+<div class="customer-grid">
+
+    {% for customer in customers %}
+
+    <article class="customer-card">
+
+        <div class="customer-avatar">
+            {{ customer.username|first|upper }}
+        </div>
+
+        <h3>{{ customer.username }}</h3>
+        <p>{{ customer.email|default:"No email provided" }}</p>
+
+        <div class="customer-details">
+            <span>Joined</span>
+            <strong>{{ customer.date_joined|date:"d M Y" }}</strong>
+        </div>
+
+        <div class="customer-details">
+            <span>Orders</span>
+            <strong>{{ customer.orders.count }}</strong>
+        </div>
+
+    </article>
+
+    {% empty %}
+
+    <div class="customer-empty">
+        <span>👥</span>
+        <h3>No customers found</h3>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'dashboard/js/customers.js' %}" defer></script>
+{% endblock %}

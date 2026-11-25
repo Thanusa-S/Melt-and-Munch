@@ -1,0 +1,231 @@
+.page-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.page-title-row h2 {
+    font-size: 22px;
+}
+
+.page-title-row p {
+    color: #958596;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.primary-btn {
+    border: 0;
+    background: linear-gradient(110deg, #fa5597, #c05cdb);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 11px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: white;
+    padding: 17px;
+    border-radius: 15px;
+    margin-bottom: 22px;
+}
+
+.filter-bar input,
+.filter-bar select {
+    padding: 11px 13px;
+    border: 1px solid #f0e3eb;
+    border-radius: 9px;
+    background: #fffafd;
+    outline: none;
+    font: inherit;
+    font-size: 12px;
+}
+
+.filter-bar input {
+    flex: 1;
+    min-width: 170px;
+}
+
+.clear-btn {
+    padding: 11px;
+    color: #e94f91;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.ice-admin-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.ice-admin-card {
+    background: white;
+    border-radius: 17px;
+    overflow: hidden;
+    box-shadow: 0 5px 22px rgba(60,30,50,.05);
+}
+
+.ice-admin-image {
+    height: 190px;
+    position: relative;
+    background: #ffe8f0;
+}
+
+.ice-admin-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-placeholder {
+    height: 100%;
+    display: grid;
+    place-items: center;
+    font-size: 65px;
+}
+
+.featured-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #ffe37b;
+    padding: 7px 10px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.ice-admin-info {
+    padding: 17px;
+}
+
+.category-tag {
+    color: #ed4d91;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.ice-admin-info h3 {
+    font-size: 16px;
+    margin: 7px 0;
+}
+
+.ice-admin-info p {
+    color: #938594;
+    font-size: 11px;
+    line-height: 1.7;
+    min-height: 38px;
+}
+
+.ice-admin-details {
+    display: flex;
+    justify-content: space-between;
+    margin: 14px 0;
+}
+
+.ice-admin-details strong {
+    color: #e84e91;
+    font-size: 17px;
+}
+
+.ice-admin-details span {
+    color: #776a78;
+    font-size: 11px;
+}
+
+.availability {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+}
+
+.available {
+    color: #27834e;
+    background: #e5f8ed;
+}
+
+.unavailable {
+    color: #bf4949;
+    background: #ffe8e8;
+}
+
+.ice-admin-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.edit-btn,
+.delete-btn {
+    flex: 1;
+    text-align: center;
+    padding: 9px;
+    border-radius: 8px;
+    border: 0;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.edit-btn {
+    background: #eee7ff;
+    color: #7955c2;
+}
+
+.delete-btn {
+    background: #ffe9ed;
+    color: #dc4776;
+}
+
+.delete-form {
+    display: flex;
+    flex: 1;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    background: white;
+    padding: 50px 20px;
+    border-radius: 17px;
+}
+
+.empty-state > span {
+    font-size: 55px;
+}
+
+.empty-state h3 {
+    margin: 12px 0;
+}
+
+.empty-state p {
+    color: #958596;
+    margin-bottom: 18px;
+}
+
+@media(max-width: 950px) {
+    .ice-admin-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 550px) {
+    .ice-admin-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-title-row {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
